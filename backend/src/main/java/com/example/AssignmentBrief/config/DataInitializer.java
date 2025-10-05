@@ -34,7 +34,7 @@ public class DataInitializer {
             if (inputStream != null) {
                 List<product> products = mapper.readValue(inputStream, typeReference);
 
-                BigDecimal goldPrice = fetchGoldPrice(); // USD per gram
+                BigDecimal goldPrice = fetchGoldPrice();
                 if (goldPrice == null) {
                     System.err.println("Gold price could not be fetched. Aborting data load.");
                     return;

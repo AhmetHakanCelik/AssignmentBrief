@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -24,5 +26,16 @@ public class productController {
     public ResponseEntity<List<productDTO>> getAllProducts() {
         List<productDTO> productDTOList = productService.getAllProducts();
         return ResponseEntity.ok(productDTOList);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<productDTO>> getAllProductsByFilter(
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) BigDecimal minPopularity,
+            @RequestParam(required = false) BigDecimal maxPopularity
+    ) {
+        List<productDTO> filteredList = productService.getFilteredProducts(minPrice, maxPrice, minPopularity,maxPopularity);
+        return ResponseEntity.ok(filteredList);
     }
 }
