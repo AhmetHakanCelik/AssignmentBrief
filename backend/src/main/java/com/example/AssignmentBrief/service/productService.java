@@ -47,15 +47,15 @@ public class productService {
         if(minPopularity != null && maxPopularity != null){
             List<product> popularityFiltered =
                     productRepository
-                            .findByPopularityScoreBetween(minPopularity,maxPopularity);
+                            .findByPopularityScoreBetween(minPopularity, maxPopularity);
             filtered.retainAll(popularityFiltered);
         }else if (minPopularity != null) {
             filtered = filtered.stream()
-                    .filter(p -> p.getPopularityScore().compareTo(minPopularity.multiply(BigDecimal.valueOf(5))) >= 0)
+                    .filter(p -> p.getPopularityScore().multiply(BigDecimal.valueOf(5)).compareTo(minPopularity) >= 0)
                     .collect(Collectors.toList());
         } else if (maxPopularity != null) {
             filtered = filtered.stream()
-                    .filter(p -> p.getPopularityScore().compareTo(maxPopularity.multiply(BigDecimal.valueOf(5))) <= 0)
+                    .filter(p -> p.getPopularityScore().multiply(BigDecimal.valueOf(5)).compareTo(maxPopularity) <= 0)
                     .collect(Collectors.toList());
         }
 
